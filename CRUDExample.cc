@@ -31,7 +31,7 @@ int main(int argc, char ** args)
 
     // Update atom's Attention value. Attention values are managed by the
     // ECAN(http://wiki.opencog.org/wikihome/index.php/Attention_Allocation)
-    //mind agents.Not meant to be by other modules.
+    //mind agents.Not meant to be used by other modules.
     hinheritance->setAttentionValue(
             AttentionValuePtr(new AttentionValue(15, 30, 45)));
 
