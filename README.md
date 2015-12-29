@@ -25,7 +25,7 @@ Opencog atomspace API tutorial.
 1. sudo apt-get install libboost-signals-dev
 2. git clone https://github.com/misgeatgit/atomspace_tutorial
 3. cd atomspace_tutorial && mkdir build && cd build
-4. make -j$(nproc) && sudo make install
+4. make -j$(nproc)
 
 ###Step 4: Run and Modify examples provided
 
