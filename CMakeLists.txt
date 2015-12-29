@@ -1,13 +1,11 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-#INCLUDE(./FindAtomSpace.cmake)
-
 IF (COMMAND CMAKE_POLICY)
 	CMAKE_POLICY(SET CMP0003 NEW)
 	CMAKE_POLICY(SET CMP0005 OLD)
 ENDIF (COMMAND CMAKE_POLICY)   
 
-# add the 'lib' dir to cmake's module search path
+# add FindAtomSpace.cmake to cmake's module path.
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
 
 #Compiler setting
@@ -20,18 +18,12 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 	#
 	# 3) -std=gnu++0x for C++0x and GNU extensions support
 	SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wno-variadic-macros -fopenmp -std=gnu++0x")
-
-	SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
-	SET(CMAKE_CXX_FLAGS_PROFILE ${CMAKE_C_FLAGS_PROFILE})
-	SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
 ENDIF (CMAKE_COMPILER_IS_GNUCXX)
 
-# AtomSpace                                                                                                                                                                     
-FIND_PACKAGE(AtomSpace 5.0.3 REQUIRED)                                                                                                                                          
+# Check if dependencies are installed.                                                                                                                                                                     
+FIND_PACKAGE(AtomSpace REQUIRED)                                                                                                                                          
 IF (ATOMSPACE_FOUND)                                                                                                                                                            
-	MESSAGE(STATUS "Great!, Ready to go with atomspace CRUD tutorial.")   
-	ADD_DEFINITIONS(-DHAVE_ATOMSPACE)                                                                                                                                       
-	SET(HAVE_ATOMSPACE 1)                                                                                                                                                   
+	MESSAGE(STATUS "Great!, You're Ready to go with atomspace tutorials.")   
 ELSE (ATOMSPACE_FOUND)                                                                                                                                                          
 	MESSAGE(FATAL_ERROR "AtomSpace missing: Please make sure that you have
 	installed atomspace before proceeding to this tutorial.")                                                                                                  
