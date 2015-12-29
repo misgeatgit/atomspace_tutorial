@@ -11,7 +11,8 @@
 using namespace opencog;
 
 /**
- * Sample code that demonstrates CRUD operations.
+ * Sample code that shows how to listen for AtomSpace related events.
+ * The followings are all the events/signals supported by the AtomSpace.
  */
 
 void AtomAddedCBHandler(const Handle& h);
