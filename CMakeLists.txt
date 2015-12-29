@@ -29,6 +29,18 @@ ELSE (ATOMSPACE_FOUND)
 	installed atomspace before proceeding to this tutorial.")                                                                                                  
 ENDIF (ATOMSPACE_FOUND)      
 
+FIND_PACKAGE(Boost 1.8 COMPONENTS signals)
+IF(Boost_FOUND)	
+	ADD_DEFINITIONS(-DHAS_BOOST)
+	SET(HAS_BOOST 1)
+	INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIRS} ) 
+	# Boost.Signals2 requires this in signal_type.hpp
+	SET(BOOST_PARAMETER_MAX_ARITY 7)
+	ADD_DEFINITIONS(-DBOOST_PARAMETER_MAX_ARITY=${BOOST_PARAMETER_MAX_ARITY})
+ELSE(Boost_FOUND)
+	MESSAGE(STATUS "Boost 1.46 not found. Will not compile atomspace events demo.")
+ENDIF(Boost_FOUND)
+
 #Compile
 ADD_EXECUTABLE(crudexample
 	CRUDExample
@@ -36,3 +48,12 @@ ADD_EXECUTABLE(crudexample
 TARGET_LINK_LIBRARIES(crudexample
 	${ATOMSPACE_LIBRARIES}
 	)
+	
+IF(Boost_FOUND)
+ADD_EXECUTABLE(aseventsexample
+	AtomSpaceEventsExample
+	)
+TARGET_LINK_LIBRARIES(aseventsexample
+	${ATOMSPACE_LIBRARIES}
+	)
+ENDIF(Boost_FOUND)

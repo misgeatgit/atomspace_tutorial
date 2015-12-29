@@ -57,7 +57,7 @@ int main(int argc, char ** args)
     // Creating hierarchical atomspace
     // http://wiki.opencog.org/wikihome/index.php/Multiple_AtomSpaces#Hierarchical_AtomSpaces
     AtomSpace child_as(&as);
-    child_as.add_node(CONCEPT_NODE, "Cat"); //Not visible to the as.
+    child_as.add_node(CONCEPT_NODE, "Cat"); //Not visible to parent atomsapce as.
 
     //Print outs of the two atomspaces
     std::cout << "Main atomspace:" << std::endl << as << std::endl
