@@ -6,7 +6,7 @@ IF (COMMAND CMAKE_POLICY)
 ENDIF (COMMAND CMAKE_POLICY)   
 
 # add FindAtomSpace.cmake to cmake's module path.
-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
+SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules")
 
 #Compiler setting
 IF (CMAKE_COMPILER_IS_GNUCXX)
@@ -21,6 +21,21 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 ENDIF (CMAKE_COMPILER_IS_GNUCXX)
 
 # Check if dependencies are installed.                                                                                                                                                                     
+FIND_PACKAGE(CogUtil REQUIRED)
+IF(COGUTIL_FOUND)
+    MESSAGE(STATUS "Found Cogutil.")
+ELSE(COGUTIL_FOUND)
+	MESSAGE(FATAL_ERROR "Cogutil not found.")
+ENDIF(COGUTIL_FOUND)
+
+FIND_PACKAGE(Guile REQUIRED)
+IF(GUILE_FOUND)       
+    ADD_DEFINITIONS(-DHAVE_GUILE)
+	SET(HAVE_GUILE 1)  
+ELSE(GUILE_FOUND) 
+    MESSAGE(FATAL_ERROR "Guile not found.")
+ENDIF(GUILE_FOUND)
+  
 FIND_PACKAGE(AtomSpace REQUIRED)                                                                                                                                          
 IF (ATOMSPACE_FOUND)                                                                                                                                                            
 	MESSAGE(STATUS "Great!, You're Ready to go with atomspace tutorials.")   
@@ -48,12 +63,23 @@ ADD_EXECUTABLE(crudexample
 TARGET_LINK_LIBRARIES(crudexample
 	${ATOMSPACE_LIBRARIES}
 	)
-	
-IF(Boost_FOUND)
-ADD_EXECUTABLE(aseventsexample
-	AtomSpaceEventsExample
+
+INCLUDE_DIRECTORIES(${GUILE_INCLUDE_DIR})
+
+ADD_EXECUTABLE(ureexample
+	UREExample
 	)
-TARGET_LINK_LIBRARIES(aseventsexample
+TARGET_LINK_LIBRARIES(ureexample
+	${COGUTIL_LIBRARY}
 	${ATOMSPACE_LIBRARIES}
 	)
+
+
+IF(Boost_FOUND)
+	ADD_EXECUTABLE(aseventsexample
+		AtomSpaceEventsExample
+		)
+	TARGET_LINK_LIBRARIES(aseventsexample
+		${ATOMSPACE_LIBRARIES}
+		)
 ENDIF(Boost_FOUND)
